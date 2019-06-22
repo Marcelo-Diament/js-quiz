@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>Revisão Aula 2 | DOM</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<header id="menuTopo">
+		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="index.html">Quiz | Revisão js - DOM</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#iconeMenu" aria-controls="iconeMenu" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="iconeMenu">
+		    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="index.html">Início <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#" onclick="alert('Responda a todas as perguntas e confira seu placar ao final do quiz. Cada pergunta respondida corretamente vale 10 pontos!\n\nVocê tem até 45 segundos por pergunta, mas, se precisar, pode pedir mais tempo (cada tempo extra solicitado subtrai 3 pontos do total.\n\nSe precisar de ajuda, clique no botão \'?\' para  visualizar uma dica. Você tem 1 dica por pergunta - e a cada dica exibida, você perde 2 pontos')">Regras</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link disabled" href="#">Estatísticas</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+	</header>
+	<main class="container">
+		<header class="row" id="stats">
+			<ul id="statsLista">
+				<li id="score"><i class="fas fa-trophy"> <span id="pontuacao">0</span> pts</i></li>
+				<li id="etapa"><i class="fas fa-walking"> <span id="perguntaAtual">1</span> de <span id="totalPerguntas"></span></i></li>
+				<li id="timer"><i class="fas fa-clock"> <span id="tempo">45</span> "</i></li>
+			</ul>
+		</header>
+
+		<section id="perguntas">
+			
+			<article class="pergunta">
+				<h2>Qual a diferença entre o <b>querySelector</b> e o <b>getElementById</b>?</h2>
+				<p class="dica">Lembre-se da forma que expressamos a característica do objeto a ser selecionado</p>
+				<hr>
+				<label for="respostaA-1"><input type="radio" name="resposta" id="respostaA-1" class="correta">querySelector usa seletores do CSS</label>
+				<label for="respostaB-1"><input type="radio" name="resposta" id="respostaB-1">getElementById usa seletores do CSS</label>
+				<label for="respostaC-1"><input type="radio" name="resposta" id="respostaC-1">querySelector retorna um array e getElementById retorna um elemento único</label>
+				<label for="respostaD-1"><input type="radio" name="resposta" id="respostaD-1">Nenhuma, são idênticos</label>
+			</article>
+			
+			<article class="pergunta oculto">
+				<h2>O <b>querySelectorAll</b> retorna um tipo de resposta, enquanto o <b>querySelector</b> retorna outro tipo. Quais são os tipos, respectivamente?</h2>
+				<p class="dica">Quando nosso retonro inclui mais de um elemento precisamos usar o loop para selecionar um elemento único. =)</p>
+				<hr>
+				<label for="respostaA-2"><input type="radio" name="resposta" id="respostaA-2">string e array</label>
+				<label for="respostaB-2"><input type="radio" name="resposta" id="respostaB-2">array e json</label>
+				<label for="respostaC-2"><input type="radio" name="resposta" id="respostaC-2">json e string</label>
+				<label for="respostaD-2"><input type="radio" name="resposta" id="respostaD-2" class="correta">array e string</label>
+			</article>
+			
+			<article class="pergunta oculto">
+				<h2>Quero selecionar o elemento de id <i>meuId</i>. Qual a maneira correta?</h2>
+				<p class="dica">Lembre-se da pergunta 1...</p>
+				<hr>
+				<label for="respostaA-3"><input type="radio" name="resposta" id="respostaA-3">document.querySelectorAll('#meuID')</label>
+				<label for="respostaB-3"><input type="radio" name="resposta" id="respostaB-3">document.getElementById('#meuID')</label>
+				<label for="respostaC-3"><input type="radio" name="resposta" id="respostaC-3" class="correta">document.querySelector('#meuID')</label>
+				<label for="respostaD-3"><input type="radio" name="resposta" id="respostaD-3">document.querySelector('meuID')</label>
+			</article>
+			
+			<button id="enviar">Enviar</button>
+
+		</section>
+
+		<nav id="controlador">
+			<button id="btnReiniciar" onclick="ctrlReiniciar()" title="Reiniciar"><i class="fas fa-home"></i></button>
+			<button id="btnVoltar" title="Voltar pergunta"><i class="fas fa-step-backward"></i></button>
+			<button id="btnPausar" title="Pausar timer"><i class="fas fa-pause"></i></button>
+			<button id="btnRetomar" title="Retomar timer" class="oculto"><i class="fas fa-play"></i></button>
+			<button id="btnAvancar" title="Avançar pergunta"><i class="fas fa-step-forward"></i></button>
+			<button id="btnMostrarDica" title="Ver dica"><i class="fas fa-question-circle"></i></button>
+		</nav>
+	</main>
+	<footer class="container-fluid bg-light">
+		<div id="logo3D" class="desktop-only col-12">
+		    <a id="cube" href="https://br.digitalhouse.com" title="Digital House Brasil" alt="Digital House Brasil" rel="external" target="_blank">
+		        <img src="https://br.digitalhouse.com/wp-content/themes/dh/assets/img/icons/apple-icon-60x60.png" height="30px" width="30px" id="back" alt="Digital House" title="Digital House">
+		    </a>
+		</div>
+		<small>Digital House Brasil &copy; | 2019</small>
+	</footer>
+	<script defer async type="text/javascript" src="assets/js/main.js"></script>
+	<script type="text/javascript" src="assets/js/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
